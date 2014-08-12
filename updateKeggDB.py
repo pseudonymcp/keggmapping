@@ -17,9 +17,6 @@ import sys
 import buildKeggDB
 import buildKeggModuleList
 
-if len(sys.argv) == 1 or sys.argv[1] == '-h':
-    sys.exit(__doc__)
-
 
 def downloadGeneKO(organism):
     """
@@ -39,6 +36,9 @@ def downloadGeneKO(organism):
 
 # Main
 if __name__ == '__main__':
+    if len(sys.argv) == 2 and sys.argv[2] == '-h':
+        sys.exit(__doc__)
+    buildKeggModuleList.buildModuleList()
     buildKeggDB.buildDir(KEGGDIRNAME)
     buildKeggDB.downloadTaxonomy()
     # Download mapping files for all organisms in the list

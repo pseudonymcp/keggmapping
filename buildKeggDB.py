@@ -78,3 +78,4 @@ if __name__ == '__main__':
     # Download mapping files for all organisms in the list
     for organism in buildOrgCodes(ORGANISMGROUP):
         downloadGeneKO(organism)
+    buildKeggModuleList.buildModuleList()

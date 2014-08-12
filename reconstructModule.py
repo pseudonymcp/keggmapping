@@ -20,6 +20,7 @@ import re
 import os
 import errno
 import sys
+import buildKeggModuleList
 
 if len(sys.argv) == 1 or sys.argv[1] == '-h':
     sys.exit(__doc__)
@@ -51,7 +52,7 @@ def getModules(SAMPLE):
     try:
         fin = open(MODULES, 'r')
     except IOError:
-        import buildKeggModuleList
+        buildKeggModuleList.buildModuleList()
         fin = open(MODULES, 'r')
     else:
         Modules = fin.read().splitlines()
