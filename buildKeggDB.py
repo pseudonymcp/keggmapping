@@ -14,6 +14,7 @@ import urllib
 import os
 import errno
 import sys
+import buildKeggModuleList
 
 
 def buildDir(dirname):
