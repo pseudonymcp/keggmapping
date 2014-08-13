@@ -25,7 +25,7 @@ import buildKeggModuleList
 if len(sys.argv) == 1 or sys.argv[1] == '-h':
     sys.exit(__doc__)
 
-DATAFILE = 'mappings/YL2.coding.faa.vs.KEGG.rapsearch.m8.KO.txt'  # sys.argv[1]
+DATAFILE = sys.argv[1]
 # SAMPLE = re.search('(?<=/)\w+(?=\.)', DATAFILE).group()
 SAMPLE = os.path.split(DATAFILE)[1]
 MODULES = KEGGDIRNAME + '/Modules.txt'
