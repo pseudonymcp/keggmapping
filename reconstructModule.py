@@ -25,7 +25,7 @@ import buildKeggModuleList
 if len(sys.argv) == 1 or sys.argv[1] == '-h':
     sys.exit(__doc__)
 
-DATAFILE = sys.argv[1]
+DATAFILE = 'mappings/YL2.coding.faa.vs.KEGG.rapsearch.m8.KO.txt'  # sys.argv[1]
 # SAMPLE = re.search('(?<=/)\w+(?=\.)', DATAFILE).group()
 SAMPLE = os.path.split(DATAFILE)[1]
 MODULES = KEGGDIRNAME + '/Modules.txt'
@@ -66,13 +66,14 @@ def getModules(SAMPLE):
     content = response.text
 
     soup = BeautifulSoup(content)
+    text = soup.get_text().split('\n')
 
     info = set(['(complete)', '(incomplete)', '(1 block missing)',
                 '(2 blocks missing)'])
 
-    for element in soup.find_all('li'):
-        line = element.get_text()
-        if line.startswith('M'):
+    for element in text:
+        line = element.encode('ascii', 'ignore').strip(' ')
+        if line.startswith('M0'):
             module = line[0:6]
             possible = re.findall('\(.*?\)', line)
             infoMissing = set(possible).intersection(info)
@@ -92,6 +93,7 @@ def getModules(SAMPLE):
 
     with open(MODULE_FILE, 'w') as fout:
         fout.write('\n'.join(Results))
+    print 'Module reconstruction for', SAMPLE, 'done.'
 
 # Extract information for all samples
 if __name__ == '__main__':
