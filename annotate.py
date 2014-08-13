@@ -105,6 +105,7 @@ def annotateKO():
                                 fmap.write(query + '\t' + koitem + '\n')
                 else:
                     continue
+        print 'Annotation for', SAMPLE, 'done.'
 
 if __name__ == '__main__':
     buildDir(MAPPINGSDIR)
