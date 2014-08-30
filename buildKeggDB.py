@@ -70,7 +70,7 @@ def downloadGeneKO(organism):
 
 # Main
 if __name__ == '__main__':
-    if len(sys.argv) == 1 or sys.argv[1] == '-h':
+    if len(sys.argv) == 2 and sys.argv[1] == '-h':
         sys.exit(__doc__)
     buildDir(KEGGDIRNAME)
     # Download taxonomy file

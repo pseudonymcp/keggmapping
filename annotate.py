@@ -13,6 +13,7 @@ from collections import defaultdict
 import urllib
 import os
 import errno
+from buildKeggDB import buildOrgCodes
 
 if len(sys.argv) == 1 or sys.argv[1] == '-h':
     sys.exit(__doc__)
@@ -88,8 +89,12 @@ def annotateKO():
     finally:
         with open(MAPPINGSDIR + '/' + SAMPLE + 'KO.txt', 'a') as fmap:
             GENES = blastparser(DATAFILE, MAX_E, MIN_BITSCORE, MIN_IDENTITY)
+            ORG_CODES = buildOrgCodes(ORGANISMGROUP)
             for organism in GENES:
-                geneToKO = retrieveGeneKO(organism)
+                if organism in ORG_CODES:
+                    geneToKO = retrieveGeneKO(organism)
+                else:
+                    continue
                 if geneToKO is not None:
                     orgGenes = GENES[organism]
                     for entry in orgGenes:

@@ -16,6 +16,7 @@ import urllib
 import sys
 import buildKeggDB
 import buildKeggModuleList
+import os
 
 
 def downloadGeneKO(organism):
@@ -38,9 +39,14 @@ def downloadGeneKO(organism):
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[2] == '-h':
         sys.exit(__doc__)
-    buildKeggModuleList.buildModuleList()
     buildKeggDB.buildDir(KEGGDIRNAME)
     buildKeggDB.downloadTaxonomy()
+    ORG_CODES = buildKeggDB.buildOrgCodes(ORGANISMGROUP)
     # Download mapping files for all organisms in the list
     for organism in buildKeggDB.buildOrgCodes(ORGANISMGROUP):
         downloadGeneKO(organism)
+    for file in os.listdir(KEGGDIRNAME):
+        if not os.path.splitext(file)[0] in ORG_CODES\
+           and file != 'taxonomy.txt' and not file.startswith('Module'):
+            os.remove(KEGGDIRNAME + '/' + file)
+    buildKeggModuleList.buildModuleList()
