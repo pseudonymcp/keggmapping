@@ -69,7 +69,7 @@ def blastparser(filename, maxe, minbit, minid):
     """
     GENES = defaultdict(list)
     with open(filename, 'r') as f:
-        for line in itertools.islice(f, 7, None):
+        for line in itertools.islice(f, 5, None):
             line = line.strip()
             if float(line.split('\t')[10]) < float(maxe) and \
                float(line.split('\t')[11]) > float(minbit) and \
