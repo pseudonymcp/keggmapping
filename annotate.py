@@ -90,6 +90,7 @@ def annotateKO():
         with open(MAPPINGSDIR + '/' + SAMPLE + 'KO.txt', 'a') as fmap:
             GENES = blastparser(DATAFILE, MAX_E, MIN_BITSCORE, MIN_IDENTITY)
             ORG_CODES = buildOrgCodes(ORGANISMGROUP)
+            DONE = defaultdict(list)
             for organism in GENES:
                 if organism in ORG_CODES:
                     geneToKO = retrieveGeneKO(organism)
@@ -104,10 +105,18 @@ def annotateKO():
                         if len(ko) == 0:
                             continue
                         elif len(ko) == 1:
-                            fmap.write(query + '\t' + ko[0] + '\n')
+                            if ko[0] not in DONE[query]:
+                                DONE[query].append(ko[0])
+                                fmap.write(query + '\t' + ko[0] + '\n')
+                            else:
+                                continue
                         else:
                             for koitem in ko:
-                                fmap.write(query + '\t' + koitem + '\n')
+                                if koitem not in DONE[query]:
+                                    DONE[query].append(koitem)
+                                    fmap.write(query + '\t' + koitem + '\n')
+                                else:
+                                    continue
                 else:
                     continue
         print 'Annotation for', SAMPLE, 'done.'
