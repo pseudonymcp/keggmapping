@@ -54,9 +54,12 @@ def retrieveGeneKO(organism):
     else:
         GENE_TO_KO = defaultdict(list)
         for line in f.readlines():
-            gene = line.split('\t')[0].strip()
-            ko = line.split('\t')[1].split(':')[1].strip()
-            GENE_TO_KO[gene].append(ko)
+            if len(line.split('\t')) == 2 and len(line.split('\t')[1].split(':')) == 2:
+               gene = line.split('\t')[0].strip()
+               ko = line.split('\t')[1].split(':')[1].strip()
+               GENE_TO_KO[gene].append(ko)
+            else:
+                   continue
         f.close()
         return GENE_TO_KO
 
