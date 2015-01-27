@@ -22,33 +22,30 @@ def buildModuleList():
     except OSError as e:
         if e.errno != errno.EEXIST or not os.path.isdir(KEGGDIRNAME):
             raise
-    
-    
+
     # Download modules files from KEGG and save it.
     urllib.urlretrieve('http://rest.kegg.jp/list/module',
                        KEGGDIRNAME + '/ModuleList.txt')
-    
-    
+
     # Prepare file with modules and names and save it.
     try:
         os.remove(KEGGDIRNAME + '/ModulesNames.txt')
     except OSError:
         pass
-    
+
     with open(KEGGDIRNAME + '/ModuleList.txt', 'r') as fin, open(
             KEGGDIRNAME + '/ModulesNames.txt', 'a') as fout:
         for line in fin.readlines():
             module = line.split('\t')[0].split(':')[1]
             name = line.split('\t')[1]
             fout.write(module + ': ' + name)
-    
-    
+
     # Prepare file with modules and save it.
     try:
         os.remove(KEGGDIRNAME + '/Modules.txt')
     except OSError:
         pass
-    
+
     with open(KEGGDIRNAME + '/ModuleList.txt', 'r') as fin, open(KEGGDIRNAME +
                                                                  '/Modules.txt',
                                                                  'a') as fout:

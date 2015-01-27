@@ -42,9 +42,9 @@ def buildDir(dirname):
             raise
 
 
-def getModules(SAMPLE):
+def getModules(SAMPLE, RESULTSDIR):
     assert os.path.isfile('mappings/' + SAMPLE), 'KO file missing.'
-    MODULE_FILE = 'results/' + SAMPLE + '.Modules.tsv'
+    MODULE_FILE = RESULTSDIR + '/' + SAMPLE + '.Modules.tsv'
     Modules = []
     Results = []
     Samplemodules = []
@@ -98,4 +98,4 @@ def getModules(SAMPLE):
 # Extract information for all samples
 if __name__ == '__main__':
     buildDir(RESULTSDIR)
-    getModules(SAMPLE)
+    getModules(SAMPLE, RESULTSDIR)
