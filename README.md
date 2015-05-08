@@ -1,5 +1,5 @@
 # Readme
-These scripts allow you to annotate sequences from BLAST results (tabular output, BLAST protein coding amino acid sequences against KEGG database) - based on userdefined e-value, bitscore and identity thresholds - with KO numbers and summarize them in KEGG modules.  
+These scripts allow you to annotate sequences from BLAST results (tabular output, BLAST protein coding amino acid sequences against KEGG database) with KO numbers - based on userdefined e-value, bitscore and identity thresholds - and summarize them in KEGG modules.  
 
 Requirements: beautifulsoup4, requests  
   
@@ -8,7 +8,7 @@ Requirements: beautifulsoup4, requests
 
 Use ```config.py``` to configure the output directories and organism groups for your analysis.  
 
-1. Run ```buildKeggDB.py``` without parameters to download mapping files (gene ID to KO) for all organisms and the list of modules via KEGG REST API. You can specify 'Prokaryotes' and/or 'Eukaryotes' via the ```config.py``` file. You can run ```updateKeggDB.py``` anytime to re-download a new version of the module list and to update mapping files for organisms that were not included in the last download or should be remove (e.g. switching from Prokaryotes and Eukaryotes to Prokaryotes alone).  
+1. Run ```buildKeggDB.py``` without parameters to download mapping files (gene ID to KO) for all organisms and the list of modules via KEGG REST API. You can specify 'Prokaryotes' and/or 'Eukaryotes' via the ```config.py``` file. You can run ```updateKeggDB.py``` anytime to re-download a new version of the module list and to update mapping files for organisms that were not included in the last download or should be removed (e.g. switching from Prokaryotes and Eukaryotes to Prokaryotes alone).  
 
 2. Run ```annotate.py``` to annotate the BLAST result (with a specified max. e-value, min. bitscore and min. identity threshold) with KO numbers.  
 __Usage:__ ```annotate.py <file> <max log e-value> <min bitscore> <min identity>```  
