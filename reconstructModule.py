@@ -59,7 +59,7 @@ def getModules(SAMPLE, RESULTSDIR):
         fin.close()
 
     # Upload sample data to KEGG Mapper and scrape output
-    url = 'http://www.genome.jp/kegg-bin/find_module_object'
+    url = 'https://www.genome.jp/kegg-bin/find_module_object'
     files = {'uploadfile': (SAMPLE, open('mappings/' + SAMPLE, 'rb'))}
     other_fields = {'mode': 'complete+ng1+ng2'}
     response = requests.post(url, data=other_fields, files=files)
